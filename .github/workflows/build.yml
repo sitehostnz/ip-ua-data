@@ -1,0 +1,33 @@
+name: Build
+
+on:
+  schedule:
+  - cron: "25 * * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install utils
+        run: sudo apt-get update && sudo apt-get -y --no-install-recommends install jq wget
+
+      - name: Run our scripts
+        id: release
+        run: |
+          ./1-gen-blocked-ips.sh
+          ./2-gen-allowed-ips.sh
+          ./3-gen-public-cloud-ranges.sh
+          ./4-gen-user-agents.sh
+          echo "builddate=$(date -Is)" >> $GITHUB_OUTPUT
+          echo "epochdate=$(date +%s)" >> $GITHUB_OUTPUT
+
+      - uses: EndBug/add-and-commit@v9
+        with:
+          author_name: SiteHost NZ
+          author_email: support@sitehost.co.nz
+          message: "Automatic build date: ${{ steps.release.outputs.builddate }}"
+          tag: "${{ steps.release.outputs.epochdate }}"
