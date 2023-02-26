@@ -20,3 +20,9 @@ wget -q -O - https://api.fastly.com/public-ip-list|jq -r '.addresses[], .ipv6_ad
 
 # Imperva (https://docs.imperva.com/howto/c85245b7)
 wget -q -O - --post-data "resp_format=text" https://my.imperva.com/api/integration/v1/ips > "$ALLOWED_IPS_DIR/Imperva"
+
+# AWS Cloudfront (https://docs.aws.amazon.com/general/latest/gr/aws-ip-ranges.html)
+wget -q -O - https://ip-ranges.amazonaws.com/ip-ranges.json| jq -r '.prefixes[] | select(.service=="CLOUDFRONT") | .ip_prefix' > "$ALLOWED_IPS_DIR/AWSCloudfront"
+
+# Google - generic (eg: PageSpeed - https://centminmod.com/nginx_configure_cloudflare.html#pagespeed)
+for subdomain in _netblocks _netblocks3 _netblocks2; do response=$(nslookup -q=TXT $subdomain.google.com 8.8.8.8); echo "$response" | grep -Eo '\<ip[46]:[^ ]+' | cut -c 5-; done > "$ALLOWED_IPS_DIR/Google"
