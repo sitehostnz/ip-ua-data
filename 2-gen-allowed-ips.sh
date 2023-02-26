@@ -17,3 +17,6 @@ echo >> "$ALLOWED_IPS_DIR/Cloudflare"
 
 # Fastly (https://developer.fastly.com/reference/api/utils/public-ip-list/)
 wget -q -O - https://api.fastly.com/public-ip-list|jq -r '.addresses[], .ipv6_addresses[]' > "$ALLOWED_IPS_DIR/Fastly"
+
+# Imperva (https://docs.imperva.com/howto/c85245b7)
+wget -q -O - --post-data "resp_format=text" https://my.imperva.com/api/integration/v1/ips > "$ALLOWED_IPS_DIR/Imperva"
