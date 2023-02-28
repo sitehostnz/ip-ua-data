@@ -22,6 +22,7 @@ jobs:
           ./2-gen-allowed-ips.sh
           ./3-gen-public-cloud-ranges.sh
           ./4-gen-user-agents.sh
+          ./5-gen-cdn-ips.sh
           echo "builddate=$(date -Is)" >> $GITHUB_OUTPUT
           echo "epochdate=$(date +%s)" >> $GITHUB_OUTPUT
 
