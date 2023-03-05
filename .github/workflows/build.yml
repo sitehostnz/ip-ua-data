@@ -13,7 +13,7 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Install utils
-        run: sudo apt-get update && sudo apt-get -y --no-install-recommends install jq wget
+        run: sudo apt-get update && sudo apt-get -y --no-install-recommends install ipcalc-ng jq wget
 
       - name: Run our scripts
         id: release
@@ -23,6 +23,7 @@ jobs:
           ./3-gen-public-cloud-ranges.sh
           ./4-gen-user-agents.sh
           ./5-gen-cdn-ips.sh
+          ./6-get-geo-ranges.sh
           echo "builddate=$(date -Is)" >> $GITHUB_OUTPUT
           echo "epochdate=$(date +%s)" >> $GITHUB_OUTPUT
 
