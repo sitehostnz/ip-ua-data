@@ -10,6 +10,7 @@ wget -q -O - https://iptoasn.com/data/ip2country-v6.tsv.gz|gunzip > /tmp/ip2coun
 
 docker cp /tmp/ip2country-v4.tsv "${CONTAINER}":/tmp/ip2country-v4.tsv
 docker cp /tmp/ip2country-v6.tsv "${CONTAINER}":/tmp/ip2country-v6.tsv
+docker exec -u postgres "${CONTAINER}" rm -rf /tmp/pgexport
 docker exec -u postgres "${CONTAINER}" mkdir /tmp/pgexport
 
 export PGPASSWORD="postgres"

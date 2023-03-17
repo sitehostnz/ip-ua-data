@@ -18,6 +18,7 @@ cd -
 cat /tmp/hostingRanges.tsv | awk -F'\t' 'BEGIN{OFS="\t"} {if ($NF=="") { gsub(/[^[:alnum:]]/, "", $1); $NF=$1 }} { gsub(/[[:space:]]+/,"",$2) } {if ($2 ~ /\//) { $2="\t\t"$2 } else { gsub(/-/,"\t",$2); $3="\t"$3 }} {for(i=2;i<=NF-1;i++) printf $i"\t"; print $NF}' > /tmp/preprocessed.tsv
 
 docker cp /tmp/preprocessed.tsv "${CONTAINER}":/tmp/preprocessed.tsv
+docker exec -u postgres "${CONTAINER}" rm -rf /tmp/pgexport
 docker exec -u postgres "${CONTAINER}" mkdir /tmp/pgexport
 
 export PGPASSWORD="postgres"
