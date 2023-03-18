@@ -8,35 +8,22 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres
-        env:
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: ipdata
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
 
     steps:
       - uses: actions/checkout@v3
 
       - name: Install utils
-        run: sudo apt-get update && sudo apt-get -y --no-install-recommends install jq postgresql-client
+        run: sudo apt-get update && sudo apt-get -y --no-install-recommends install jq && pip3 install netaddr
 
       - name: Run our scripts
         id: release
         run: |
           ./1-gen-blocked-ips.sh
           ./2-gen-allowed-ips.sh
-          ./3-gen-public-cloud-ranges.sh
+          ./3-gen-public-cloud-ranges.py
           ./4-gen-user-agents.sh
           ./5-gen-cdn-ips.sh
-          ./6-get-geo-ranges.sh
+          ./6-get-geo-ranges.py
           echo "builddate=$(date -Is)" >> $GITHUB_OUTPUT
           echo "epochdate=$(date +%s)" >> $GITHUB_OUTPUT
 
