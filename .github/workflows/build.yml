@@ -26,6 +26,7 @@ jobs:
           ./6-get-geo-ranges.py
           echo "builddate=$(date -Is)" >> $GITHUB_OUTPUT
           echo "epochdate=$(date +%s)" >> $GITHUB_OUTPUT
+          git pull
 
       - uses: EndBug/add-and-commit@v9
         with:
