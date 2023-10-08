@@ -40,9 +40,10 @@ with zipfile.ZipFile(zipfile_bytes) as z:
           subnets = ipaddress.summarize_address_range(first, last)
 
         # Summarize IP address range and write resulting subnets to file
-        with open(os.path.join(HOSTING_IPS_DIR,provider), 'a') as provider_file:
-          for subnet in subnets:
-            provider_file.write(str(subnet) + "\n")
+        if len(provider) <= 64:
+          with open(os.path.join(HOSTING_IPS_DIR,provider), 'a') as provider_file:
+            for subnet in subnets:
+              provider_file.write(str(subnet) + "\n")
 
 for filename in os.listdir(HOSTING_IPS_DIR):
   filepath = os.path.join(HOSTING_IPS_DIR, filename)
