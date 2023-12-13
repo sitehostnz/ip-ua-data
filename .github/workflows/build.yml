@@ -20,7 +20,6 @@ jobs:
         run: |
           ./1-gen-blocked-ips.sh
           ./2-gen-allowed-ips.sh
-          ./3-gen-public-cloud-ranges.py
           ./4-gen-user-agents.sh
           ./5-gen-cdn-ips.sh
           ./6-get-geo-ranges.py
