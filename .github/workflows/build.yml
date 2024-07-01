@@ -18,7 +18,6 @@ jobs:
       - name: Run our scripts
         id: release
         run: |
-          ./1-gen-blocked-ips.sh
           ./2-gen-allowed-ips.sh
           ./5-gen-cdn-ips.sh
           ./6-get-geo-ranges.py
