@@ -1,0 +1,45 @@
+# This file contains IP addresses that have been whitelisted at the request of customers
+# Start a new line with either `#` or `//` to insert a comment
+#
+# DO NOT use inline comment.
+# DO NOT include any customer-specific information (e.g., server names, customer names, IDs, etc.) in this file. This repository is publicly accessible.
+#
+# Add IPs using the format below:
+# Ticket: <ID> BEGIN   ← Start of entry for the ticket
+# <Subnet_1>           ← One or more subnets
+# <Subnet_n>
+# Ticket: <ID> END     ← End of entry for the ticket
+
+# Ticket: AZE-95982-861 BEGIN
+20.37.196.201/32
+20.53.185.125/32
+20.53.186.54/32
+20.53.187.76/32
+20.53.187.131/32
+20.53.189.85/32
+20.53.190.87/32
+20.53.191.21/32
+20.53.191.24/32
+20.53.191.87/32
+20.53.191.112/32
+20.53.191.138/32
+20.53.191.142/32
+20.53.191.144/32
+20.53.191.202/32
+20.53.191.233/32
+20.53.191.239/32
+20.92.128.14/32
+20.92.128.22/32
+20.92.128.27/32
+20.92.128.44/32
+20.92.128.91/32
+20.92.128.100/32
+20.92.128.116/32
+20.92.128.153/32
+20.92.128.155/32
+20.92.128.180/32
+20.92.128.206/32
+20.92.128.213/32
+20.92.128.218/32
+20.92.128.234/32
+# Ticket: AZE-95982-861 END
