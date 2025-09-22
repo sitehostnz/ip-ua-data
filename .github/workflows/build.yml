@@ -24,12 +24,6 @@ jobs:
           echo "builddate=$(date -Is)" >> $GITHUB_OUTPUT
           echo "epochdate=$(date +%s)" >> $GITHUB_OUTPUT
 
-      - name: Push changes if updated
-        run: |
-          git config --global user.email "support@sitehost.co.nz"
-          git config --global user.name "SiteHost NZ"
-          git diff --quiet || (git add -A && git commit -m "Update from GitHub Actions" && git pull --rebase)
-
       - uses: EndBug/add-and-commit@v9
         with:
           author_name: SiteHost NZ
