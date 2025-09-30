@@ -30,3 +30,4 @@ jobs:
           author_email: support@sitehost.co.nz
           message: "Automatic build date: ${{ steps.release.outputs.builddate }}"
           tag: "${{ steps.release.outputs.epochdate }}"
+          pull: "--rebase --autostash"
