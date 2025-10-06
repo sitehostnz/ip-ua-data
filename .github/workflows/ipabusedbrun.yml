@@ -1,0 +1,32 @@
+name: IPABUSEDBRUN
+
+on:
+  schedule:
+  - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install utils
+        run: sudo apt-get update && sudo apt-get -y --no-install-recommends install jq && pip3 install netaddr requests
+
+      - name: Run our scripts
+        id: release
+        env:
+          ABUSE_IPDB_API_KEY: ${{ secrets.ABUSE_IPDB_API_KEY }}
+        run: |
+          python3 7-get-abuse-ipdb.py
+          echo "builddate=$(date -Is)" >> $GITHUB_OUTPUT
+          echo "epochdate=$(date +%s)" >> $GITHUB_OUTPUT
+      
+      - uses: EndBug/add-and-commit@v9
+        with:
+          author_name: SiteHost NZ
+          author_email: support@sitehost.co.nz
+          message: "Automatic build date: ${{ steps.release.outputs.builddate }}"
+          tag: "${{ steps.release.outputs.epochdate }}"
