@@ -9,7 +9,7 @@ wget -q -O - https://developers.google.com/static/search/apis/ipranges/googlebot
 wget -q -O - http://www.bing.com/toolbox/bingbot.json|jq -r '.prefixes[] | [.ipv4Prefix,.ipv6Prefix] | map(select(. != null)) | .[]' > "$ALLOWED_IPS_DIR/BingBot"
 
 # Google - generic (eg: PageSpeed - https://centminmod.com/nginx_configure_cloudflare.html#pagespeed)
-for subdomain in _netblocks _netblocks3 _netblocks2; do response=$(nslookup -q=TXT $subdomain.google.com 8.8.8.8); echo "$response" | grep -Eo '\<ip[46]:[^ ]+' | cut -c 5-; done > "$ALLOWED_IPS_DIR/Google"
+for subdomain in _netblocks _netblocks3 _netblocks2; do response=$(nslookup -q=TXT $subdomain.google.com 8.8.8.8); echo "$response" | grep -Eo '\<ip[46]:[^ ]+' | cut -c 5-; done | sort | uniq  > "$ALLOWED_IPS_DIR/Google"
 
 # Uptime Robot (https://uptimerobot.com/help/locations/)
 wget -q -O - https://cdn.uptimerobot.com/api/IPv4andIPv6.txt > "$ALLOWED_IPS_DIR/UptimeRobot"
