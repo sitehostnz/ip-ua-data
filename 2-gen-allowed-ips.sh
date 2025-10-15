@@ -19,3 +19,7 @@ wget -q -O - https://cdn.uptimerobot.com/api/IPv4andIPv6.txt > "$ALLOWED_IPS_DIR
   wget -q -O - https://app.statuscake.com/Workfloor/Locations.php?format=json | jq -r '.[] | [.ip, .ipv6] | map(select(. != null and . != "")) | .[]'
   wget -q -O - https://app.statuscake.com/API/SpeedLocations/json | jq -r '.[] | [.ip, .ipv6] | map(select(. != null and . != "")) | .[]'
 } | sort -u > "$ALLOWED_IPS_DIR/StatusCake"
+
+# Apple iCloud Private Relay (https://developer.apple.com/icloud/prepare-your-network-for-icloud-private-relay/)
+# Only getting NZ Cloudflare IPs for now
+wget -q -O - 'https://mask-api.icloud.com/egress-ip-ranges.csv' | grep NZ  | grep ^104 | awk -F ',' '{print $1}' > "$ALLOWED_IPS_DIR/AppleICloudPrivateRelay"
