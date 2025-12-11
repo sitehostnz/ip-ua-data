@@ -8,7 +8,7 @@ ABUSE_IPS_DIR = "abuse-ipdb"
 OUTFILE = f"{ABUSE_IPS_DIR}/abusedb-ips"
 
 URL = "https://api.abuseipdb.com/api/v2/blacklist"
-LIMIT = str(10000)
+LIMIT = str(30000)
 BAD_IPS_URL = "https://raw.githubusercontent.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/master/_generator_lists/bad-ip-addresses.list"
 
 API_KEY = os.getenv('ABUSE_IPDB_API_KEY')
